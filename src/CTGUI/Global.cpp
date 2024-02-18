@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,8 +24,7 @@
 
 
 #include <CTGUI/Global.h>
-#include <CTGUI/InternalGlobal.h>
-#include <CTGUI/SFML/Graphics/FontStruct.h>
+#include <CTGUI/InternalGlobal.hpp>
 #include <TGUI/Global.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,16 +32,9 @@
 const char* tgui_getLastError()
 {
     static std::string errorBuffer;
-    errorBuffer = tguiErrorMessage;
-    tguiErrorMessage = "";
+    errorBuffer = ctgui::tguiErrorMessage;
+    ctgui::tguiErrorMessage = "";
     return errorBuffer.c_str();
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void tgui_setGlobalFont(const sfFont* font)
-{
-    tgui::setGlobalFont(font->This);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,12 +51,14 @@ unsigned int tgui_getGlobalTextSize()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tgui_setEditCursorBlinkRate(unsigned int blinkRateMilliseconds)
+void tgui_setEditCursorBlinkRate(tguiDuration blinkRate)
 {
-    tgui::setEditCursorBlinkRate(blinkRateMilliseconds);
+    tgui::setEditCursorBlinkRate(std::chrono::nanoseconds(blinkRate.nanoseconds));
 }
 
-unsigned int tgui_getEditCursorBlinkRate()
+tguiDuration tgui_getEditCursorBlinkRate()
 {
-    return tgui::getEditCursorBlinkRate();
+    tguiDuration duration;
+    duration.nanoseconds = static_cast<tguiInt64>(std::chrono::nanoseconds(tgui::getEditCursorBlinkRate()).count());
+    return duration;
 }

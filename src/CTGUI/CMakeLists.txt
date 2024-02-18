@@ -1,37 +1,57 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/include/CTGUI)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/CTGUI)
 set(SRC
+    ${INCROOT}/Animation.h
+    ${SRCROOT}/Color.cpp
+    ${INCROOT}/Color.h
     ${SRCROOT}/Container.cpp
     ${INCROOT}/Container.h
-    ${SRCROOT}/ConvertEvent.h
-    ${SRCROOT}/CustomWidgetForBindings.cpp
-    ${INCROOT}/CustomWidgetForBindings.h
-    ${SRCROOT}/CustomWidgetForBindingsStruct.h
+    ${INCROOT}/Cursor.h
+    ${SRCROOT}/CustomWidget.cpp
+    ${INCROOT}/CustomWidget.h
+    ${SRCROOT}/CustomWidgetBase.cpp
+    ${SRCROOT}/CustomWidgetBase.hpp
+    ${SRCROOT}/Duration.cpp
+    ${INCROOT}/Duration.h
+    ${INCROOT}/Event.h
+    ${SRCROOT}/Font.cpp
+    ${INCROOT}/Font.h
+    ${SRCROOT}/FontStruct.hpp
     ${SRCROOT}/Global.cpp
     ${INCROOT}/Global.h
     ${SRCROOT}/Gui.cpp
     ${INCROOT}/Gui.h
-    ${SRCROOT}/GuiStruct.h
+    ${SRCROOT}/GuiStruct.hpp
     ${SRCROOT}/InternalGlobal.cpp
-    ${SRCROOT}/InternalGlobal.h
+    ${SRCROOT}/InternalGlobal.hpp
     ${SRCROOT}/Layout.cpp
     ${INCROOT}/Layout.h
-    ${SRCROOT}/LayoutStruct.h
+    ${SRCROOT}/LayoutStruct.hpp
     ${SRCROOT}/Outline.cpp
     ${INCROOT}/Outline.h
-    ${SRCROOT}/OutlineStruct.h
+    ${SRCROOT}/OutlineStruct.hpp
+    ${SRCROOT}/Rect.cpp
+    ${INCROOT}/Rect.h
     ${SRCROOT}/RendererData.cpp
     ${INCROOT}/RendererData.h
-    ${SRCROOT}/RendererDataStruct.h
+    ${SRCROOT}/RendererDataStruct.hpp
+    ${INCROOT}/ScrollbarPolicy.h
     ${SRCROOT}/Theme.cpp
     ${INCROOT}/Theme.h
-    ${SRCROOT}/ThemeStruct.h
+    ${SRCROOT}/ThemeStruct.hpp
+    ${SRCROOT}/Texture.cpp
+    ${INCROOT}/Texture.h
+    ${SRCROOT}/TextureStruct.hpp
     ${SRCROOT}/ToolTip.cpp
     ${INCROOT}/ToolTip.h
     ${INCROOT}/Types.h
+    ${SRCROOT}/Vector2.cpp
+    ${INCROOT}/Vector2.h
     ${SRCROOT}/Widget.cpp
     ${INCROOT}/Widget.h
-    ${SRCROOT}/WidgetStruct.h
+    ${SRCROOT}/WidgetStruct.hpp
+    ${SRCROOT}/Backend/CSFML-Graphics.cpp
+    ${INCROOT}/Backend/CSFML-Graphics.h
     ${SRCROOT}/Renderers/BoxLayoutRenderer.cpp
     ${INCROOT}/Renderers/BoxLayoutRenderer.h
     ${SRCROOT}/Renderers/ButtonRenderer.cpp
@@ -84,9 +104,6 @@ set(SRC
     ${INCROOT}/Renderers/TreeViewRenderer.h
     ${SRCROOT}/Renderers/WidgetRenderer.cpp
     ${INCROOT}/Renderers/WidgetRenderer.h
-    ${SRCROOT}/SFML/CallbackStream.h
-    ${SRCROOT}/SFML/Graphics/FontStruct.h
-    ${SRCROOT}/SFML/Graphics/TextureStruct.h
     ${INCROOT}/Widgets/BitmapButton.h
     ${SRCROOT}/Widgets/BitmapButton.cpp
     ${INCROOT}/Widgets/BoxLayout.h
@@ -95,8 +112,6 @@ set(SRC
     ${SRCROOT}/Widgets/BoxLayoutRatios.cpp
     ${INCROOT}/Widgets/Button.h
     ${SRCROOT}/Widgets/Button.cpp
-    ${INCROOT}/Widgets/Canvas.h
-    ${SRCROOT}/Widgets/Canvas.cpp
     ${INCROOT}/Widgets/ChatBox.h
     ${SRCROOT}/Widgets/ChatBox.cpp
     ${INCROOT}/Widgets/CheckBox.h
@@ -151,8 +166,8 @@ set(SRC
     ${SRCROOT}/Widgets/SpinButton.cpp
     ${INCROOT}/Widgets/Tabs.h
     ${SRCROOT}/Widgets/Tabs.cpp
-    ${INCROOT}/Widgets/TextBox.h
-    ${SRCROOT}/Widgets/TextBox.cpp
+    ${INCROOT}/Widgets/TextArea.h
+    ${SRCROOT}/Widgets/TextArea.cpp
     ${INCROOT}/Widgets/TreeView.h
     ${SRCROOT}/Widgets/TreeView.cpp
     ${INCROOT}/Widgets/VerticalLayout.h
@@ -239,7 +254,7 @@ if(NOT TGUI_OS_WINDOWS)
 endif()
 
 # Link the target to its external dependencies
-target_link_libraries(ctgui PUBLIC tgui sfml-graphics)
+target_link_libraries(ctgui PUBLIC tgui)
 
 # Build dylibs on macOS
 if(TGUI_OS_MACOSX AND BUILD_SHARED_LIBS)

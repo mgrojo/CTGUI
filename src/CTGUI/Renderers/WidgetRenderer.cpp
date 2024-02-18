@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,9 +24,9 @@
 
 
 #include <CTGUI/Renderers/WidgetRenderer.h>
-#include <CTGUI/Renderers/RendererStruct.h>
-#include <CTGUI/RendererDataStruct.h>
-#include <CTGUI/SFML/Graphics/FontStruct.h>
+#include <CTGUI/Renderers/RendererStruct.hpp>
+#include <CTGUI/RendererDataStruct.hpp>
+#include <CTGUI/FontStruct.hpp>
 
 #include <TGUI/Renderers/WidgetRenderer.hpp>
 
@@ -42,7 +42,7 @@ tguiRenderer* tguiWidgetRenderer_copy(const tguiRenderer* renderer)
     return new tguiRenderer(new tgui::WidgetRenderer(*renderer->This));
 }
 
-void tguiWidgetRenderer_destroy(tguiRenderer* renderer)
+void tguiWidgetRenderer_free(tguiRenderer* renderer)
 {
     if (renderer->AllocatedInWrapper)
         delete renderer->This;
@@ -76,19 +76,24 @@ float tguiWidgetRenderer_getOpacityDisabled(const tguiRenderer* renderer)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiWidgetRenderer_setFont(tguiRenderer* renderer, sfFont* font)
+void tguiWidgetRenderer_setFont(tguiRenderer* renderer, tguiFont* font)
 {
-    renderer->This->setFont(font->This);
+    renderer->This->setFont(*font->This);
+}
+
+tguiFont* tguiWidgetRenderer_getFont(const tguiRenderer* renderer)
+{
+    return new tguiFont(std::make_unique<tgui::Font>(renderer->This->getFont()));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiWidgetRenderer_setTransparentTexture(tguiRenderer* renderer, sfBool ignoreTransparentParts)
+void tguiWidgetRenderer_setTransparentTexture(tguiRenderer* renderer, tguiBool ignoreTransparentParts)
 {
     renderer->This->setTransparentTexture(ignoreTransparentParts != 0);
 }
 
-sfBool tguiWidgetRenderer_getTransparentTexture(tguiRenderer* renderer)
+tguiBool tguiWidgetRenderer_getTransparentTexture(tguiRenderer* renderer)
 {
     return renderer->This->getTransparentTexture();
 }

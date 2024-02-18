@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -27,15 +27,16 @@
 #define CTGUI_GLOBAL_H
 
 #include <CTGUI/Config.h>
-#include <SFML/Graphics/Font.h>
-
-CTGUI_API void tgui_setGlobalFont(const sfFont* font);
+#include <CTGUI/Color.h>
+#include <CTGUI/Duration.h>
+#include <CTGUI/Rect.h>
+#include <CTGUI/Vector2.h>
 
 CTGUI_API void tgui_setGlobalTextSize(unsigned int textSize);
 CTGUI_API unsigned int tgui_getGlobalTextSize();
 
-CTGUI_API void tgui_setEditCursorBlinkRate(unsigned int blinkRateMilliseconds);
-CTGUI_API unsigned int tgui_getEditCursorBlinkRate();
+CTGUI_API void tgui_setEditCursorBlinkRate(tguiDuration blinkRateMilliseconds);
+CTGUI_API tguiDuration tgui_getEditCursorBlinkRate();
 
 CTGUI_API const char* tgui_getLastError();
 

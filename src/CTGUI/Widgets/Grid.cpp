@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,8 +24,8 @@
 
 
 #include <CTGUI/Widgets/Grid.h>
-#include <CTGUI/WidgetStruct.h>
-#include <CTGUI/OutlineStruct.h>
+#include <CTGUI/WidgetStruct.hpp>
+#include <CTGUI/OutlineStruct.hpp>
 
 #include <TGUI/Widgets/Grid.hpp>
 
@@ -35,26 +35,26 @@
 
 tguiWidget* tguiGrid_create(void)
 {
-    return new tguiWidget(tgui::Grid::create());
+    return ctgui::addWidgetRef(tgui::Grid::create());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiGrid_setAutoSize(tguiWidget* widget, sfBool autoSize)
+void tguiGrid_setAutoSize(tguiWidget* widget, tguiBool autoSize)
 {
     DOWNCAST(widget->This)->setAutoSize(autoSize != 0);
 }
 
-sfBool tguiGrid_getAutoSize(const tguiWidget* widget)
+tguiBool tguiGrid_getAutoSize(const tguiWidget* widget)
 {
     return DOWNCAST(widget->This)->getAutoSize();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiGrid_addWidget(tguiWidget* grid, tguiWidget* widget, size_t row, size_t col, tguiOutline* padding, tguiAlignment alignment)
+void tguiGrid_addWidget(tguiWidget* grid, tguiWidget* widget, size_t row, size_t col, tguiAlignment alignment, tguiOutline* padding)
 {
-    DOWNCAST(grid->This)->addWidget(widget->This, row, col, padding->This, static_cast<tgui::Grid::Alignment>(alignment));
+    DOWNCAST(grid->This)->addWidget(widget->This, row, col, static_cast<tgui::Grid::Alignment>(alignment), padding->This);
 }
 
 tguiWidget* tguiGrid_getWidget(tguiWidget* grid, size_t row, size_t col)

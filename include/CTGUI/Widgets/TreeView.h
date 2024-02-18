@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -26,22 +26,21 @@
 #ifndef CTGUI_TREE_VIEW_H
 #define CTGUI_TREE_VIEW_H
 
-#include <CTGUI/Config.h>
 #include <CTGUI/Widget.h>
 
 CTGUI_API tguiWidget* tguiTreeView_create(void);
 
-CTGUI_API sfBool tguiTreeView_addItem(tguiWidget* widget, const sfUint32** hierarcy, unsigned int hierarchyLength, sfBool createParents);
+CTGUI_API tguiBool tguiTreeView_addItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool createParents);
 
-CTGUI_API void tguiTreeView_expand(tguiWidget* widget, const sfUint32** hierarcy, unsigned int hierarchyLength);
-CTGUI_API void tguiTreeView_collapse(tguiWidget* widget, const sfUint32** hierarcy, unsigned int hierarchyLength);
+CTGUI_API void tguiTreeView_expand(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
+CTGUI_API void tguiTreeView_collapse(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
 
 CTGUI_API void tguiTreeView_expandAll(tguiWidget* widget);
 CTGUI_API void tguiTreeView_collapseAll(tguiWidget* widget);
 
-CTGUI_API sfBool tguiTreeView_selectItem(tguiWidget* widget, const sfUint32** hierarcy, unsigned int hierarchyLength);
+CTGUI_API tguiBool tguiTreeView_selectItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
 
-CTGUI_API sfBool tguiTreeView_removeItem(tguiWidget* widget, const sfUint32** hierarcy, unsigned int hierarchyLength, sfBool removeParentsWhenEmpty);
+CTGUI_API tguiBool tguiTreeView_removeItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty);
 CTGUI_API void tguiTreeView_removeAllItems(tguiWidget* widget);
 
 CTGUI_API void tguiTreeView_deselectItem(tguiWidget* widget);

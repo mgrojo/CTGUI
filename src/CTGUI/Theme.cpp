@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,9 +24,9 @@
 
 
 #include <CTGUI/Theme.h>
-#include <CTGUI/ThemeStruct.h>
-#include <CTGUI/RendererDataStruct.h>
-#include <CTGUI/InternalGlobal.h>
+#include <CTGUI/ThemeStruct.hpp>
+#include <CTGUI/RendererDataStruct.hpp>
+#include <CTGUI/InternalGlobal.hpp>
 
 #include <TGUI/Exception.hpp>
 
@@ -34,31 +34,31 @@
 
 tguiTheme* tguiTheme_create(void)
 {
-    return new tguiTheme;
+    return new tguiTheme(tgui::Theme::create());
 }
 
 tguiTheme* tguiTheme_copy(const tguiTheme* theme)
 {
-    return new tguiTheme(*theme);
+    return new tguiTheme(std::make_shared<tgui::Theme>(*theme->This));
 }
 
-void tguiTheme_destroy(tguiTheme* theme)
+void tguiTheme_free(tguiTheme* theme)
 {
     delete theme;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-sfBool tguiTheme_load(tguiTheme* theme, const char* filename)
+tguiBool tguiTheme_load(tguiTheme* theme, const char* filename)
 {
     try
     {
-        theme->This.load(filename);
+        theme->This->load(filename);
         return true;
     }
     catch (const tgui::Exception& e)
     {
-        tguiErrorMessage = e.what();
+        ctgui::tguiErrorMessage = e.what();
         return false;
     }
 }
@@ -69,43 +69,43 @@ tguiRendererData* tguiTheme_getRenderer(tguiTheme* theme, const char* id)
 {
     try
     {
-        std::shared_ptr<tgui::RendererData> data = theme->This.getRenderer(id);
+        std::shared_ptr<tgui::RendererData> data = theme->This->getRenderer(id);
         return new tguiRendererData(data);
     }
     catch (const tgui::Exception& e)
     {
-        tguiErrorMessage = e.what();
+        ctgui::tguiErrorMessage = e.what();
         return nullptr;
     }
 }
 
 void tguiTheme_addRenderer(tguiTheme* theme, const char* id, tguiRendererData* renderer)
 {
-    theme->This.addRenderer(id, renderer->This);
+    theme->This->addRenderer(id, renderer->This);
 }
 
-sfBool tguiTheme_removeRenderer(tguiTheme* theme, const char* id)
+tguiBool tguiTheme_removeRenderer(tguiTheme* theme, const char* id)
 {
-    return theme->This.removeRenderer(id);
+    return theme->This->removeRenderer(id);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const char* tguiTheme_getFilename(const tguiTheme* theme)
+tguiUtf32 tguiTheme_getPrimary(const tguiTheme* theme)
 {
-    return returnString(theme->This.getPrimary());
+    return ctgui::fromCppStr(theme->This->getPrimary());
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void tguiTheme_setDefault(tguiTheme* defaultTheme)
 {
-    tgui::Theme::setDefault(&defaultTheme->This);
+    tgui::Theme::setDefault(defaultTheme->This);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 tguiTheme* tguiTheme_getDefault(void)
 {
-    return new tguiTheme{*tgui::Theme::getDefault()};
+    return new tguiTheme{tgui::Theme::getDefault()};
 }

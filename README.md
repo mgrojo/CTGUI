@@ -1,8 +1,8 @@
 CTGUI
 =====
 
-**This binding is no longber being actively developed. There are currently no plans to update it to TGUI 0.9**
+**This binding is currently being updated from TGUI 0.8 to TGUI 1.x and therefore still lacks features**
 
-CTGUI is a C binding for the [TGUI library](https://github.com/texus/TGUI), a cross-platform GUI for SFML.
+CTGUI is a C binding for the [TGUI library](https://github.com/texus/TGUI), a cross-platform c++ GUI.
 
-Although it is possible to use it directly in a C program, it was created to simplify other bindings such as the [.Net binding](https://github.com/texus/TGUI.Net).
+It is intended to simplify creating bindings for TGUI in other languages, but it is also possible to use CTGUI directly in a C program.

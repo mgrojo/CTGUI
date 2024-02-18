@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -26,17 +26,25 @@
 #define CTGUI_CTGUI_HPP
 
 #include <CTGUI/Global.h>
+#include <CTGUI/Alignment.h>
+#include <CTGUI/Animation.h>
+#include <CTGUI/Color.h>
 #include <CTGUI/Container.h>
-#include <CTGUI/Gui.h>
-#include <CTGUI/Widget.h>
-#include <CTGUI/Theme.h>
+#include <CTGUI/Cursor.h>
+#include <CTGUI/CustomWidget.h>
+#include <CTGUI/Layout.h>
+#include <CTGUI/Outline.h>
+#include <CTGUI/Rect.h>
 #include <CTGUI/RendererData.h>
+#include <CTGUI/ScrollbarPolicy.h>
+#include <CTGUI/Theme.h>
 #include <CTGUI/ToolTip.h>
+#include <CTGUI/Vector2.h>
+#include <CTGUI/Widget.h>
 
 #include <CTGUI/Widgets/BoxLayout.h>
 #include <CTGUI/Widgets/BoxLayoutRatios.h>
 #include <CTGUI/Widgets/Button.h>
-#include <CTGUI/Widgets/Canvas.h>
 #include <CTGUI/Widgets/ChatBox.h>
 #include <CTGUI/Widgets/CheckBox.h>
 #include <CTGUI/Widgets/ChildWindow.h>
@@ -63,7 +71,7 @@
 #include <CTGUI/Widgets/Slider.h>
 #include <CTGUI/Widgets/SpinButton.h>
 #include <CTGUI/Widgets/Tabs.h>
-#include <CTGUI/Widgets/TextBox.h>
+#include <CTGUI/Widgets/TextArea.h>
 #include <CTGUI/Widgets/VerticalLayout.h>
 
 #include <CTGUI/Renderers/BoxLayoutRenderer.h>

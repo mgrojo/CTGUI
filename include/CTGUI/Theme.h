@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // TGUI - Texus' Graphical User Interface
-// Copyright (C) 2012-2020 Bruno Van de Velde (vdv_b@tgui.eu)
+// Copyright (C) 2012-2024 Bruno Van de Velde (vdv_b@tgui.eu)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -30,15 +30,15 @@
 
 CTGUI_API tguiTheme* tguiTheme_create(void);
 CTGUI_API tguiTheme* tguiTheme_copy(const tguiTheme* theme);
-CTGUI_API void tguiTheme_destroy(tguiTheme* theme);
+CTGUI_API void tguiTheme_free(tguiTheme* theme);
 
-CTGUI_API sfBool tguiTheme_load(tguiTheme* theme, const char* filename);
+CTGUI_API tguiBool tguiTheme_load(tguiTheme* theme, const char* filename);
 
 CTGUI_API tguiRendererData* tguiTheme_getRenderer(tguiTheme* theme, const char* id);
 CTGUI_API void tguiTheme_addRenderer(tguiTheme* theme, const char* id, tguiRendererData* renderer);
-CTGUI_API sfBool tguiTheme_removeRenderer(tguiTheme* theme, const char* id);
+CTGUI_API tguiBool tguiTheme_removeRenderer(tguiTheme* theme, const char* id);
 
-CTGUI_API const char* tguiTheme_getFilename(const tguiTheme* theme);
+CTGUI_API tguiUtf32 tguiTheme_getPrimary(const tguiTheme* theme);
 
 CTGUI_API void tguiTheme_setDefault(tguiTheme* defaultTheme);
 CTGUI_API tguiTheme* tguiTheme_getDefault(void);
