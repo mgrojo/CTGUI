@@ -28,6 +28,8 @@
 
 #include <CTGUI/Global.h>
 #include <CTGUI/Event.h>
+#include <CTGUI/RenderStates.h>
+#include <CTGUI/BackendRenderTarget.h>
 
 CTGUI_API tguiWidget* tguiCustomWidget_create(void);
 
@@ -54,9 +56,7 @@ CTGUI_API void tguiCustomWidget_setLeftMouseButtonNoLongerDownCallback(tguiWidge
 CTGUI_API void tguiCustomWidget_setMouseEnteredWidgetCallback(tguiWidget* widget, void (*function)(void));
 CTGUI_API void tguiCustomWidget_setMouseLeftWidgetCallback(tguiWidget* widget, void (*function)(void));
 CTGUI_API void tguiCustomWidget_setRendererChangedCallback(tguiWidget* widget, tguiBool (*function)(tguiUtf32));
-
-// TODO
-//CTGUI_API void tguiCustomWidget_setDrawCallback(tguiWidget* widget, void (*function)(tguiRenderStates));
+CTGUI_API void tguiCustomWidget_setDrawCallback(tguiWidget* widget, void (*function)(tguiBackendRenderTarget*, tguiRenderStates*)); // Parameters should NOT be freed inside callback function
 
 #endif // CTGUI_CUSTOM_WIDGET_FOR_BINDINGS_H
 

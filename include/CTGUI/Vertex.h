@@ -22,23 +22,18 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef CTGUI_RENDERER_STRUCT_H
-#define CTGUI_RENDERER_STRUCT_H
 
-#include <CTGUI/InternalGlobal.hpp>
-#include <CTGUI/TextureStruct.hpp>
-#include <TGUI/Renderers/WidgetRenderer.hpp>
+#ifndef CTGUI_VERTEX_H
+#define CTGUI_VERTEX_H
 
-struct tguiRenderer
+#include <CTGUI/Vector2.h>
+#include <CTGUI/Color.h>
+
+typedef struct
 {
-    tgui::WidgetRenderer* This;
-    bool                  AllocatedInWrapper;
+    tguiVector2f position;
+    tguiColor    color;
+    tguiVector2f texCoords;
+} tguiVertex;
 
-    tguiRenderer(tgui::WidgetRenderer* renderer, bool allocatedInWrapper = true) :
-        This{renderer},
-        AllocatedInWrapper{allocatedInWrapper}
-    {
-    }
-};
-
-#endif // CTGUI_RENDERER_STRUCT_H
+#endif // CTGUI_VERTEX_H

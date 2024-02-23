@@ -2,6 +2,9 @@ set(INCROOT ${PROJECT_SOURCE_DIR}/include/CTGUI)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/src/CTGUI)
 set(SRC
     ${INCROOT}/Animation.h
+    ${SRCROOT}/BackendRenderTarget.cpp
+    ${INCROOT}/BackendRenderTarget.h
+    ${SRCROOT}/BackendRenderTargetStruct.hpp
     ${SRCROOT}/Color.cpp
     ${INCROOT}/Color.h
     ${SRCROOT}/Container.cpp
@@ -36,6 +39,12 @@ set(SRC
     ${INCROOT}/RendererData.h
     ${SRCROOT}/RendererDataStruct.hpp
     ${INCROOT}/ScrollbarPolicy.h
+    ${SRCROOT}/Sprite.cpp
+    ${INCROOT}/Sprite.h
+    ${SRCROOT}/SpriteStruct.hpp
+    ${SRCROOT}/Text.cpp
+    ${INCROOT}/Text.h
+    ${SRCROOT}/TextStruct.hpp
     ${SRCROOT}/Theme.cpp
     ${INCROOT}/Theme.h
     ${SRCROOT}/ThemeStruct.hpp
@@ -50,8 +59,6 @@ set(SRC
     ${SRCROOT}/Widget.cpp
     ${INCROOT}/Widget.h
     ${SRCROOT}/WidgetStruct.hpp
-    ${SRCROOT}/Backend/CSFML-Graphics.cpp
-    ${INCROOT}/Backend/CSFML-Graphics.h
     ${SRCROOT}/Renderers/BoxLayoutRenderer.cpp
     ${INCROOT}/Renderers/BoxLayoutRenderer.h
     ${SRCROOT}/Renderers/ButtonRenderer.cpp
@@ -174,9 +181,25 @@ set(SRC
     ${SRCROOT}/Widgets/VerticalLayout.cpp
 )
 
-add_library(ctgui ${SRC})
+add_library(ctgui SHARED ${SRC})
 
-target_include_directories(ctgui PUBLIC ${CSFML_INCLUDE_DIR})
+if(CTGUI_BACKEND STREQUAL "CSFML_GRAPHICS")
+    target_sources(ctgui PRIVATE
+        ${SRCROOT}/Backend/CSFML-Graphics.cpp
+        ${INCROOT}/Backend/CSFML-Graphics.h
+    )
+    target_include_directories(ctgui PUBLIC ${CSFML_INCLUDE_DIR})
+    target_link_libraries(ctgui PUBLIC csfml-graphics csfml-window csfml-system)
+elseif(CTGUI_BACKEND STREQUAL "SDL_RENDERER")
+    target_sources(ctgui PRIVATE
+        ${SRCROOT}/Backend/SDL-Renderer.cpp
+        ${INCROOT}/Backend/SDL-Renderer.h
+    )
+    target_link_libraries(ctgui PUBLIC SDL2::SDL2 SDL2_ttf::SDL2_ttf)
+endif()
+
+target_link_libraries(ctgui PUBLIC TGUI::TGUI)
+
 target_include_directories(ctgui PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_include_directories(ctgui PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
@@ -186,52 +209,42 @@ set_target_properties(ctgui PROPERTIES DEFINE_SYMBOL CTGUI_EXPORTS)
 target_compile_definitions(ctgui PUBLIC TGUI_NO_DEPRECATED_WARNINGS)
 
 # Set some compile flags when using GCC and Clang
-if(TGUI_COMPILER_GCC OR TGUI_COMPILER_CLANG)
+if(CTGUI_COMPILER_GCC OR CTGUI_COMPILER_CLANG)
     target_compile_options(ctgui PRIVATE -Wall)
     target_compile_options(ctgui PRIVATE -Wextra)
     target_compile_options(ctgui PRIVATE -Wshadow)
     target_compile_options(ctgui PRIVATE -Wno-long-long)
     target_compile_options(ctgui PRIVATE -pedantic)
-
-    set_target_properties(ctgui PROPERTIES CXX_STANDARD_REQUIRED ON)
-    set_target_properties(ctgui PROPERTIES CXX_EXTENSIONS OFF)
-    set_target_properties(ctgui PROPERTIES CXX_STANDARD 14)
 endif()
 
+# Require C11 to use CTGUI and C++17 to build CTGUI
+target_compile_features(ctgui PUBLIC c_std_11)
+target_compile_features(ctgui PRIVATE cxx_std_17)
+
 # Set the version and soversion of the target (for compatible systems -- mostly Linuxes)
-set_target_properties(ctgui PROPERTIES SOVERSION ${CTGUI_VERSION_MAJOR}.${CTGUI_VERSION_MINOR})
-set_target_properties(ctgui PROPERTIES VERSION ${CTGUI_VERSION_MAJOR}.${CTGUI_VERSION_MINOR}.${CTGUI_VERSION_PATCH})
+set_target_properties(ctgui PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
+set_target_properties(ctgui PROPERTIES VERSION ${PROJECT_VERSION})
 
 # Set the target's folder (for IDEs that support it, e.g. Visual Studio)
 set_target_properties(ctgui PROPERTIES FOLDER "CTGUI")
 
-if(TGUI_OS_WINDOWS)
+if(CTGUI_OS_WINDOWS)
     # Include the major version number in Windows shared library names (but not import library names)
     set_target_properties(ctgui PROPERTIES DEBUG_POSTFIX -d)
-    set_target_properties(ctgui PROPERTIES SUFFIX "-${CTGUI_VERSION_MAJOR}.${CTGUI_VERSION_MINOR}${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    set_target_properties(ctgui PROPERTIES SUFFIX "-${PROJECT_VERSION_MAJOR}${CMAKE_SHARED_LIBRARY_SUFFIX}")
 else()
     set_target_properties(ctgui PROPERTIES DEBUG_POSTFIX -d)
 endif()
 
-if (TGUI_OS_WINDOWS AND TGUI_COMPILER_GCC)
+if (CTGUI_OS_WINDOWS AND CTGUI_COMPILER_GCC)
     # On Windows/gcc get rid of "lib" prefix for shared libraries and transform the ".dll.a" suffix into ".a" for import libraries
     set_target_properties(ctgui PROPERTIES PREFIX "")
     set_target_properties(ctgui PROPERTIES IMPORT_SUFFIX ".a")
 endif()
 
-# Use libc++ on macOS
-if(TGUI_OS_MACOSX)
-    if(${CMAKE_GENERATOR} MATCHES "Xcode")
-        set_property(TARGET ctgui PROPERTY XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
-    else()
-        target_compile_options(ctgui PRIVATE "-stdlib=libc++")
-        target_link_libraries(ctgui PRIVATE "-stdlib=libc++")
-    endif()
-endif()
-
-# Apply the TGUI_USE_STATIC_STD_LIBS option on windows
-if(TGUI_OS_WINDOWS)
-    if(TGUI_COMPILER_MSVC AND TGUI_USE_STATIC_STD_LIBS)
+# Apply the CTGUI_USE_STATIC_STD_LIBS option on windows
+if(CTGUI_OS_WINDOWS)
+    if(CTGUI_COMPILER_MSVC AND CTGUI_USE_STATIC_STD_LIBS)
         foreach(flag
                 CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
                 CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
@@ -239,25 +252,20 @@ if(TGUI_OS_WINDOWS)
                 string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
             endif()
         endforeach()
-    elseif(TGUI_COMPILER_GCC)
-        if(TGUI_USE_STATIC_STD_LIBS AND NOT TGUI_COMPILER_GCC_TDM)
+    elseif(CTGUI_COMPILER_GCC)
+        if(CTGUI_USE_STATIC_STD_LIBS AND NOT CTGUI_COMPILER_GCC_TDM)
             target_link_libraries(ctgui PRIVATE "-static-libgcc" "-static-libstdc++")
-        elseif(NOT TGUI_USE_STATIC_STD_LIBS AND TGUI_COMPILER_GCC_TDM)
+        elseif(NOT CTGUI_USE_STATIC_STD_LIBS AND CTGUI_COMPILER_GCC_TDM)
             target_link_libraries(ctgui PRIVATE "-shared-libgcc" "-shared-libstdc++")
         endif()
     endif()
 endif()
 
 # Hide public symbols by default (exported ones are explicitly marked)
-if(NOT TGUI_OS_WINDOWS)
-    target_compile_options(ctgui PRIVATE -fvisibility=hidden)
-endif()
-
-# Link the target to its external dependencies
-target_link_libraries(ctgui PUBLIC tgui)
+set_target_properties(ctgui PROPERTIES CXX_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN YES)
 
 # Build dylibs on macOS
-if(TGUI_OS_MACOSX AND BUILD_SHARED_LIBS)
+if(CTGUI_OS_MACOSX AND BUILD_SHARED_LIBS)
     # Adapt install directory to allow distributing dylibs/frameworks in user’s frameworks/application bundle but only if cmake rpath options aren't set
     if(NOT CMAKE_SKIP_RPATH AND NOT CMAKE_SKIP_INSTALL_RPATH AND NOT CMAKE_INSTALL_RPATH AND NOT CMAKE_INSTALL_RPATH_USE_LINK_PATH AND NOT CMAKE_INSTALL_NAME_DIR)
         set_target_properties(ctgui PROPERTIES INSTALL_NAME_DIR "@rpath")
@@ -267,8 +275,7 @@ if(TGUI_OS_MACOSX AND BUILD_SHARED_LIBS)
     endif()
 endif()
 
-# Install the binaries to the lib folder
 install(TARGETS ctgui
-        RUNTIME DESTINATION bin COMPONENT bin
-        LIBRARY DESTINATION lib${LIB_SUFFIX} COMPONENT bin 
-        ARCHIVE DESTINATION lib${LIB_SUFFIX} COMPONENT devel)
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT bin
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT bin
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT devel)

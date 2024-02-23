@@ -29,7 +29,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-tguiTexture* tguiTexture_createNull()
+tguiTexture* tguiTexture_createNull(void)
 {
     return new tguiTexture(std::make_unique<tgui::Texture>());
 }
@@ -168,7 +168,7 @@ void tguiTexture_setDefaultSmooth(tguiBool smooth)
     tgui::Texture::setDefaultSmooth(smooth != 0);
 }
 
-tguiBool tguiTexture_getDefaultSmooth()
+tguiBool tguiTexture_getDefaultSmooth(void)
 {
     return tgui::Texture::getDefaultSmooth();
 }

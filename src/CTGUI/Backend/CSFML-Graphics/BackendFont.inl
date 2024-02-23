@@ -30,6 +30,7 @@
 #include <TGUI/Backend/Window/Backend.hpp>
 #include <SFML/Graphics.h>
 #include <unordered_set>
+#include <cassert>
 #include <memory>
 #include <map>
 

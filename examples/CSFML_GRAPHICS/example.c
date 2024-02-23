@@ -10,8 +10,9 @@ void func()
 void main()
 {
     sfVideoMode videoMode = {400, 300, 32};
-    sfRenderWindow* window = sfRenderWindow_create(videoMode, "CTGUI example", sfDefaultStyle, NULL);
+    sfRenderWindow* window = sfRenderWindow_create(videoMode, "CTGUI example (CSFML-GRAPHICS)", sfDefaultStyle, NULL);
 
+    // The tguiGui object should always be the first CTGUI object to create
     tguiGui* gui = tguiGuiCSFMLGraphics_create(window);
 
     tguiWidget* button = tguiButton_create();
@@ -25,7 +26,12 @@ void main()
     tguiVector2f size = {200, 40};
     tguiWidget_setSize(button, size);
 
-    tguiWidget_signalConnect(button, "pressed", func);
+    tguiColor buttonColor = tguiColor_fromRGB(128, 220, 128);
+    tguiRenderer* buttonRenderer = tguiWidget_getRenderer(button);
+    tguiButtonRenderer_setBackgroundColor(buttonRenderer, &buttonColor);
+    tguiWidgetRenderer_free(buttonRenderer);
+
+    tguiWidget_signalConnect(button, "Pressed", func);
 
     while (sfRenderWindow_isOpen(window))
     {
@@ -35,7 +41,7 @@ void main()
             if (event.type == sfEvtClosed)
                 sfRenderWindow_close(window);
 
-            tguiGuiCSFMLGraphics_handleEvent(gui, event);
+            tguiGuiCSFMLGraphics_handleEvent(gui, &event);
         }
 
         sfRenderWindow_clear(window, sfBlack);
@@ -45,5 +51,6 @@ void main()
 
     tguiWidget_free(button);
     tguiGuiCSFMLGraphics_free(gui);
+
     sfRenderWindow_destroy(window);
 }

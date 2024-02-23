@@ -34,14 +34,14 @@ void tguiFont_setGlobalFont(tguiFont* font)
     tgui::Font::setGlobalFont(*font->This);
 }
 
-tguiFont* tguiFont_getGlobalFont()
+tguiFont* tguiFont_getGlobalFont(void)
 {
     return new tguiFont(std::make_unique<tgui::Font>(tgui::Font::getGlobalFont()));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-tguiFont* tguiFont_createNull()
+tguiFont* tguiFont_createNull(void)
 {
     return new tguiFont(std::make_unique<tgui::Font>());
 }

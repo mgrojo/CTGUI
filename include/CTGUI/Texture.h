@@ -28,7 +28,7 @@
 
 #include <CTGUI/Global.h>
 
-CTGUI_API tguiTexture* tguiTexture_createNull();
+CTGUI_API tguiTexture* tguiTexture_createNull(void);
 CTGUI_API tguiTexture* tguiTexture_createFromFile(tguiUtf32 filename, tguiUIntRect partRect, tguiUIntRect middleRect);
 CTGUI_API tguiTexture* tguiTexture_createFromFileEx(tguiUtf32 filename, tguiUIntRect partRect, tguiUIntRect middleRect, tguiBool smoothing);
 
@@ -55,7 +55,7 @@ CTGUI_API tguiColor* tguiTexture_getColor(const tguiTexture* texture);
 CTGUI_API tguiBool tguiTexture_isTransparentPixel(const tguiTexture* texture, tguiVector2u pos);
 
 CTGUI_API void tguiTexture_setDefaultSmooth(tguiBool smooth);
-CTGUI_API tguiBool tguiTexture_getDefaultSmooth();
+CTGUI_API tguiBool tguiTexture_getDefaultSmooth(void);
 
 #endif // CTGUI_TEXTURE_H
 

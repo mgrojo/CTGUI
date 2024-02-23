@@ -23,45 +23,27 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <CTGUI/ToolTip.h>
-#include <TGUI/ToolTip.hpp>
-#include <TGUI/Duration.hpp>
+#include <CTGUI/Backend/SDL-Renderer.h>
+#include <CTGUI/GuiStruct.hpp>
+#include <TGUI/Backend/SDL-Renderer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setInitialDelay(tguiDuration delay)
+tguiGui* tguiGuiSDLRenderer_create(SDL_Window* window, SDL_Renderer* renderer)
 {
-    tgui::ToolTip::setInitialDelay(std::chrono::nanoseconds(delay.nanoseconds));
+    tguiGui* gui = new tguiGui();
+    gui->This = std::make_unique<tgui::SDL_RENDERER::Gui>(window, renderer);
+    return gui;
 }
 
-tguiDuration tguiToolTip_getInitialDelay(void)
+void tguiGuiSDLRenderer_free(tguiGui* gui)
 {
-    tguiDuration delay;
-    delay.nanoseconds = static_cast<tguiInt64>(std::chrono::nanoseconds(tgui::ToolTip::getInitialDelay()).count());
-    return delay;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void tguiToolTip_setDistanceToMouse(tguiVector2f distance)
-{
-    tgui::ToolTip::setDistanceToMouse({distance.x, distance.y});
-}
-
-tguiVector2f tguiToolTip_getDistanceToMouse(void)
-{
-    tgui::Vector2f distance = tgui::ToolTip::getDistanceToMouse();
-    return {distance.x, distance.y};
+    delete gui;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setShowOnDisabledWidget(tguiBool show)
+void tguiGuiSDLRenderer_handleEvent(tguiGui* gui, const SDL_Event* event)
 {
-    tgui::ToolTip::setShowOnDisabledWidget(show != 0);
-}
-
-tguiBool tguiToolTip_getShowOnDisabledWidget(void)
-{
-    return tgui::ToolTip::getShowOnDisabledWidget();
+    static_cast<tgui::SDL_RENDERER::Gui*>(gui->This.get())->handleEvent(*event);
 }

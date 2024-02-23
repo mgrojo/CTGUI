@@ -24,11 +24,11 @@
 
 
 #include <CTGUI/Backend/CSFML-Graphics.h>
-#include <CTGUI/Backend/CSFML-Graphics/BackendTexture.hpp>
-#include <CTGUI/Backend/CSFML-Graphics/BackendFont.hpp>
-#include <CTGUI/Backend/CSFML-Graphics/BackendRenderer.hpp>
-#include <CTGUI/Backend/CSFML-Graphics/BackendRenderTarget.hpp>
-#include <CTGUI/Backend/CSFML-Graphics/Backend.hpp>
+#include <CTGUI/Backend/CSFML-Graphics/BackendTexture.inl>
+#include <CTGUI/Backend/CSFML-Graphics/BackendFont.inl>
+#include <CTGUI/Backend/CSFML-Graphics/BackendRenderer.inl>
+#include <CTGUI/Backend/CSFML-Graphics/BackendRenderTarget.inl>
+#include <CTGUI/Backend/CSFML-Graphics/Backend.inl>
 #include <CTGUI/GuiStruct.hpp>
 #include <TGUI/Backend/Window/BackendGui.hpp>
 #include <TGUI/Timer.hpp>
@@ -494,7 +494,7 @@ void tguiGuiCSFMLGraphics_free(tguiGui* gui)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiGuiCSFMLGraphics_handleEvent(tguiGui* gui, sfEvent event)
+void tguiGuiCSFMLGraphics_handleEvent(tguiGui* gui, const sfEvent* event)
 {
-    static_cast<ctgui::GuiCSFMLGraphics*>(gui->This.get())->handleEvent(event);
+    static_cast<ctgui::GuiCSFMLGraphics*>(gui->This.get())->handleEvent(*event);
 }

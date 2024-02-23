@@ -29,13 +29,13 @@
 #include <CTGUI/Global.h>
 
 CTGUI_API void tguiToolTip_setInitialDelay(tguiDuration delay);
-CTGUI_API tguiDuration tguiToolTip_getInitialDelay();
+CTGUI_API tguiDuration tguiToolTip_getInitialDelay(void);
 
 CTGUI_API void tguiToolTip_setDistanceToMouse(tguiVector2f distance);
-CTGUI_API tguiVector2f tguiToolTip_getDistanceToMouse();
+CTGUI_API tguiVector2f tguiToolTip_getDistanceToMouse(void);
 
 CTGUI_API void tguiToolTip_setShowOnDisabledWidget(tguiBool show);
-CTGUI_API tguiBool tguiToolTip_getShowOnDisabledWidget();
+CTGUI_API tguiBool tguiToolTip_getShowOnDisabledWidget(void);
 
 #endif // CTGUI_TOOL_TIP_H
 

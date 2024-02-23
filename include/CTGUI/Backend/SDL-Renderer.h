@@ -22,46 +22,24 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef CTGUI_GUI_SDL_RENDERER_H
+#define CTGUI_GUI_SDL_RENDERER_H
 
-#include <CTGUI/ToolTip.h>
-#include <TGUI/ToolTip.hpp>
-#include <TGUI/Duration.hpp>
+#include <CTGUI/Global.h>
+#include <CTGUI/Gui.h>
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include <SDL.h>
+#include <SDL_ttf.h>
 
-void tguiToolTip_setInitialDelay(tguiDuration delay)
-{
-    tgui::ToolTip::setInitialDelay(std::chrono::nanoseconds(delay.nanoseconds));
-}
-
-tguiDuration tguiToolTip_getInitialDelay(void)
-{
-    tguiDuration delay;
-    delay.nanoseconds = static_cast<tguiInt64>(std::chrono::nanoseconds(tgui::ToolTip::getInitialDelay()).count());
-    return delay;
-}
+typedef struct tguiGuiSDLRenderer tguiGuiSDLRenderer;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setDistanceToMouse(tguiVector2f distance)
-{
-    tgui::ToolTip::setDistanceToMouse({distance.x, distance.y});
-}
+CTGUI_API tguiGui* tguiGuiSDLRenderer_create(SDL_Window* window, SDL_Renderer* renderer);
+CTGUI_API void tguiGuiSDLRenderer_free(tguiGui* gui);
 
-tguiVector2f tguiToolTip_getDistanceToMouse(void)
-{
-    tgui::Vector2f distance = tgui::ToolTip::getDistanceToMouse();
-    return {distance.x, distance.y};
-}
+CTGUI_API void tguiGuiSDLRenderer_handleEvent(tguiGui* gui, const SDL_Event* event);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setShowOnDisabledWidget(tguiBool show)
-{
-    tgui::ToolTip::setShowOnDisabledWidget(show != 0);
-}
-
-tguiBool tguiToolTip_getShowOnDisabledWidget(void)
-{
-    return tgui::ToolTip::getShowOnDisabledWidget();
-}
+#endif // CTGUI_GUI_SDL_RENDERER_H

@@ -22,23 +22,19 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef CTGUI_RENDERER_STRUCT_H
-#define CTGUI_RENDERER_STRUCT_H
+#ifndef CTGUI_BACKEND_RENDER_TARGET_STRUCT_H
+#define CTGUI_BACKEND_RENDER_TARGET_STRUCT_H
 
-#include <CTGUI/InternalGlobal.hpp>
-#include <CTGUI/TextureStruct.hpp>
-#include <TGUI/Renderers/WidgetRenderer.hpp>
+#include <TGUI/Backend/Renderer/BackendRenderTarget.hpp>
 
-struct tguiRenderer
+struct tguiBackendRenderTarget
 {
-    tgui::WidgetRenderer* This;
-    bool                  AllocatedInWrapper;
+    tgui::BackendRenderTarget* This;
 
-    tguiRenderer(tgui::WidgetRenderer* renderer, bool allocatedInWrapper = true) :
-        This{renderer},
-        AllocatedInWrapper{allocatedInWrapper}
+    tguiBackendRenderTarget(tgui::BackendRenderTarget* target) :
+        This(target)
     {
     }
 };
 
-#endif // CTGUI_RENDERER_STRUCT_H
+#endif // CTGUI_BACKEND_RENDER_TARGET_STRUCT_H

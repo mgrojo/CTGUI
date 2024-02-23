@@ -55,7 +55,7 @@ CTGUI_API tguiAutoLayout tguiWidget_getAutoLayout(const tguiWidget* widget);
 CTGUI_API void tguiWidget_setOrigin(tguiWidget* widget, tguiVector2f origin);
 CTGUI_API tguiVector2f tguiWidget_getOrigin(const tguiWidget* widget);
 
-CTGUI_API unsigned int tguiWidget_signalConnect(tguiWidget* widget, const char* signalName, void (*function)());
+CTGUI_API unsigned int tguiWidget_signalConnect(tguiWidget* widget, const char* signalName, void (*function)(void));
 CTGUI_API unsigned int tguiWidget_signalConnectEx(tguiWidget* widget, const char* signalName, void (*function)(tguiWidget*, tguiUtf32)); // tguiWidget_free must be called on the first parameter in the callback function
 
 CTGUI_API unsigned int tguiWidget_signalIntConnect(tguiWidget* widget, const char* signalName, void (*function)(int));

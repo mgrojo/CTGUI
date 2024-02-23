@@ -36,9 +36,9 @@ typedef struct
 } tguiFontGlyph;
 
 CTGUI_API void tguiFont_setGlobalFont(tguiFont* font);
-CTGUI_API tguiFont* tguiFont_getGlobalFont();
+CTGUI_API tguiFont* tguiFont_getGlobalFont(void);
 
-CTGUI_API tguiFont* tguiFont_createNull();
+CTGUI_API tguiFont* tguiFont_createNull(void);
 CTGUI_API tguiFont* tguiFont_createFromFile(tguiUtf32 filename);
 CTGUI_API tguiFont* tguiFont_createFromMemory(tguiUint8* data, size_t dataSize);
 

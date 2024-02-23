@@ -25,6 +25,7 @@
 
 #include <CTGUI/CustomWidget.h>
 #include <CTGUI/WidgetStruct.hpp>
+#include <CTGUI/BackendRenderTargetStruct.hpp>
 #include <CTGUI/CustomWidgetBase.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,12 +178,15 @@ void tguiCustomWidget_setRendererChangedCallback(tguiWidget* widget, tguiBool (*
     };
 }
 
-// TODO
-/*
-void tguiCustomWidget_setDrawCallback(tguiWidget* widget, void (*function)(tguiRenderStates))
+void tguiCustomWidget_setDrawCallback(tguiWidget* widget, void (*function)(tguiBackendRenderTarget*, tguiRenderStates*))
 {
-    DOWNCAST(widget->This)->implDrawFunction = ...;
+    DOWNCAST(widget->This)->implDrawFunction = [function](tgui::BackendRenderTarget& cppTarget, tgui::RenderStates cppStates){
+        tguiBackendRenderTarget cTarget(&cppTarget);
+        tguiRenderStates cStates;
+        std::memcpy(cStates.transform.matrix, cppStates.transform.getMatrix().data(), 16*sizeof(float));
+        function(&cTarget, &cStates);
+    };
 }
-*/
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

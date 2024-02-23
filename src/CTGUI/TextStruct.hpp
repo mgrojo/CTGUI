@@ -22,23 +22,15 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef CTGUI_RENDERER_STRUCT_H
-#define CTGUI_RENDERER_STRUCT_H
+#ifndef CTGUI_TEXT_STRUCT_H
+#define CTGUI_TEXT_STRUCT_H
 
-#include <CTGUI/InternalGlobal.hpp>
-#include <CTGUI/TextureStruct.hpp>
-#include <TGUI/Renderers/WidgetRenderer.hpp>
+#include <TGUI/Text.hpp>
 
-struct tguiRenderer
+struct tguiText
 {
-    tgui::WidgetRenderer* This;
-    bool                  AllocatedInWrapper;
-
-    tguiRenderer(tgui::WidgetRenderer* renderer, bool allocatedInWrapper = true) :
-        This{renderer},
-        AllocatedInWrapper{allocatedInWrapper}
-    {
-    }
+    tgui::Text This;
 };
 
-#endif // CTGUI_RENDERER_STRUCT_H
+
+#endif // CTGUI_TEXT_STRUCT_H

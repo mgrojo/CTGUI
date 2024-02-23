@@ -23,45 +23,22 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include <CTGUI/ToolTip.h>
-#include <TGUI/ToolTip.hpp>
-#include <TGUI/Duration.hpp>
+#ifndef CTGUI_RENDER_STATES_H
+#define CTGUI_RENDER_STATES_H
+
+#include <CTGUI/Global.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setInitialDelay(tguiDuration delay)
-{
-    tgui::ToolTip::setInitialDelay(std::chrono::nanoseconds(delay.nanoseconds));
-}
+typedef struct {
+    float matrix[16];
+} tguiTransform;
 
-tguiDuration tguiToolTip_getInitialDelay(void)
-{
-    tguiDuration delay;
-    delay.nanoseconds = static_cast<tguiInt64>(std::chrono::nanoseconds(tgui::ToolTip::getInitialDelay()).count());
-    return delay;
-}
+typedef struct {
+    tguiTransform transform;
+} tguiRenderStates;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void tguiToolTip_setDistanceToMouse(tguiVector2f distance)
-{
-    tgui::ToolTip::setDistanceToMouse({distance.x, distance.y});
-}
+#endif // CTGUI_RENDER_STATES_H
 
-tguiVector2f tguiToolTip_getDistanceToMouse(void)
-{
-    tgui::Vector2f distance = tgui::ToolTip::getDistanceToMouse();
-    return {distance.x, distance.y};
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void tguiToolTip_setShowOnDisabledWidget(tguiBool show)
-{
-    tgui::ToolTip::setShowOnDisabledWidget(show != 0);
-}
-
-tguiBool tguiToolTip_getShowOnDisabledWidget(void)
-{
-    return tgui::ToolTip::getShowOnDisabledWidget();
-}

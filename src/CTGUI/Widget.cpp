@@ -31,6 +31,7 @@
 
 #include <TGUI/Container.hpp>
 #include <TGUI/Widgets/ChildWindow.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -98,7 +99,9 @@ namespace ctgui
                 continue;
             }
 
-            // TODO: Callback
+            if (ctgui::bindingWidgetCleanupCallback)
+                ctgui::bindingWidgetCleanupCallback(it->second.get());
+
             it = globalWidgetsMap.erase(it);
         }
     }
@@ -223,7 +226,7 @@ tguiVector2f tguiWidget_getOrigin(const tguiWidget* widget)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-unsigned int tguiWidget_signalConnect(tguiWidget* widget, const char* signalName, void (*function)())
+unsigned int tguiWidget_signalConnect(tguiWidget* widget, const char* signalName, void (*function)(void))
 {
     try
     {

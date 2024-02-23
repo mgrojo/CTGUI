@@ -29,7 +29,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const char* tgui_getLastError()
+const char* tgui_getLastError(void)
 {
     static std::string errorBuffer;
     errorBuffer = ctgui::tguiErrorMessage;
@@ -44,7 +44,7 @@ void tgui_setGlobalTextSize(unsigned int textSize)
     tgui::setGlobalTextSize(textSize);
 }
 
-unsigned int tgui_getGlobalTextSize()
+unsigned int tgui_getGlobalTextSize(void)
 {
     return tgui::getGlobalTextSize();
 }
@@ -56,9 +56,16 @@ void tgui_setEditCursorBlinkRate(tguiDuration blinkRate)
     tgui::setEditCursorBlinkRate(std::chrono::nanoseconds(blinkRate.nanoseconds));
 }
 
-tguiDuration tgui_getEditCursorBlinkRate()
+tguiDuration tgui_getEditCursorBlinkRate(void)
 {
     tguiDuration duration;
     duration.nanoseconds = static_cast<tguiInt64>(std::chrono::nanoseconds(tgui::getEditCursorBlinkRate()).count());
     return duration;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void tgui_setBindingWidgetCleanupCallback(void (*function)(tguiWidget*))
+{
+    ctgui::bindingWidgetCleanupCallback = function;
 }

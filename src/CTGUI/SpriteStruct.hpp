@@ -22,23 +22,23 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef CTGUI_RENDERER_STRUCT_H
-#define CTGUI_RENDERER_STRUCT_H
+#ifndef CTGUI_SPRITE_STRUCT_H
+#define CTGUI_SPRITE_STRUCT_H
 
-#include <CTGUI/InternalGlobal.hpp>
+#include <CTGUI/Texture.h>
 #include <CTGUI/TextureStruct.hpp>
-#include <TGUI/Renderers/WidgetRenderer.hpp>
+#include <TGUI/Sprite.hpp>
 
-struct tguiRenderer
+struct tguiSprite
 {
-    tgui::WidgetRenderer* This;
-    bool                  AllocatedInWrapper;
+    tgui::Sprite This;
 
-    tguiRenderer(tgui::WidgetRenderer* renderer, bool allocatedInWrapper = true) :
-        This{renderer},
-        AllocatedInWrapper{allocatedInWrapper}
+    tguiSprite(tguiTexture* texture)
     {
+        if (texture)
+            This.setTexture(*texture->This);
     }
 };
 
-#endif // CTGUI_RENDERER_STRUCT_H
+
+#endif // CTGUI_SPRITE_STRUCT_H

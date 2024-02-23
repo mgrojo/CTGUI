@@ -28,7 +28,7 @@
 #include <CTGUI/Types.h>
 
 #define CTGUI_VERSION_MAJOR 1
-#define CTGUI_VERSION_MINOR 1
+#define CTGUI_VERSION_MINOR 2
 #define CTGUI_VERSION_PATCH 0
 
 #if defined(_WIN32)

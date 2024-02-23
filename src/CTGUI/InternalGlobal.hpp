@@ -33,6 +33,12 @@ namespace ctgui
 {
     extern std::string tguiErrorMessage; // Holds the error to be returned by tgui_getLastError()
 
+    // The bindingWidgetCleanupCallback is called once per frame for each widget that was destroyed since the last check.
+    // Note that the pointer passed as parameter should NOT be freed or accessed in any way by the callback function!
+    // A binding may store a global map of resources with the widget pointer as key. This callback allows the binding
+    // to release all resources that were still attached to the freed widget.
+    extern void (*bindingWidgetCleanupCallback)(tguiWidget*);
+
     const char* fromCppStr(const char* str) = delete;
     tguiUtf32 fromCppStr(tguiUtf32 str) = delete;
     const char* fromCppStr(const std::string& str);
@@ -41,7 +47,7 @@ namespace ctgui
     tgui::String toCppStr(tguiUtf32 str);
 
     tguiColor* fromCppColor(tgui::Color color);
-    tgui::Color toCppColor(tguiColor* color);
+    tgui::Color toCppColor(const tguiColor* color);
 }
 
 #endif // CTGUI_INTERNAL_GLOBAL_H
