@@ -30,17 +30,17 @@
 
 CTGUI_API tguiWidget* tguiTreeView_create(void);
 
-CTGUI_API tguiBool tguiTreeView_addItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool createParents);
+CTGUI_API tguiBool tguiTreeView_addItem(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool createParents);
 
-CTGUI_API void tguiTreeView_expand(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
-CTGUI_API void tguiTreeView_collapse(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
+CTGUI_API void tguiTreeView_expand(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength);
+CTGUI_API void tguiTreeView_collapse(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength);
 
 CTGUI_API void tguiTreeView_expandAll(tguiWidget* widget);
 CTGUI_API void tguiTreeView_collapseAll(tguiWidget* widget);
 
-CTGUI_API tguiBool tguiTreeView_selectItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
+CTGUI_API tguiBool tguiTreeView_selectItem(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength);
 
-CTGUI_API tguiBool tguiTreeView_removeItem(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty);
+CTGUI_API tguiBool tguiTreeView_removeItem(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty);
 CTGUI_API void tguiTreeView_removeAllItems(tguiWidget* widget);
 
 CTGUI_API void tguiTreeView_deselectItem(tguiWidget* widget);

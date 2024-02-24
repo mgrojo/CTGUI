@@ -33,19 +33,19 @@ CTGUI_API tguiWidget* tguiMenuBar_create(void);
 CTGUI_API void tguiMenuBar_addMenu(tguiWidget* widget, tguiUtf32 text);
 CTGUI_API tguiBool tguiMenuBar_addMenuItem(tguiWidget* widget, tguiUtf32 menu, tguiUtf32 text);
 CTGUI_API tguiBool tguiMenuBar_addMenuItemToLastMenu(tguiWidget* widget, tguiUtf32 text);
-CTGUI_API tguiBool tguiMenuBar_addMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool createParents);
+CTGUI_API tguiBool tguiMenuBar_addMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool createParents);
 
 CTGUI_API tguiBool tguiMenuBar_removeMenu(tguiWidget* widget, tguiUtf32 menu);
 CTGUI_API tguiBool tguiMenuBar_removeMenuItem(tguiWidget* widget, tguiUtf32 menu, tguiUtf32 menuItem);
-CTGUI_API tguiBool tguiMenuBar_removeMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty);
+CTGUI_API tguiBool tguiMenuBar_removeMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty);
 CTGUI_API void tguiMenuBar_removeAllMenus(tguiWidget* widget);
 
 CTGUI_API tguiBool tguiMenuBar_setMenuEnabled(tguiWidget* widget, tguiUtf32 text, tguiBool enabled);
 CTGUI_API tguiBool tguiMenuBar_getMenuEnabled(tguiWidget* widget, tguiUtf32 text);
 CTGUI_API tguiBool tguiMenuBar_setMenuItemEnabled(tguiWidget* widget, tguiUtf32 menu, tguiUtf32 text, tguiBool enabled);
 CTGUI_API tguiBool tguiMenuBar_getMenuItemEnabled(tguiWidget* widget, tguiUtf32 menu, tguiUtf32 text);
-CTGUI_API tguiBool tguiMenuBar_setMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool enabled);
-CTGUI_API tguiBool tguiMenuBar_getMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength);
+CTGUI_API tguiBool tguiMenuBar_setMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool enabled);
+CTGUI_API tguiBool tguiMenuBar_getMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength);
 
 CTGUI_API void tguiMenuBar_setMinimumSubMenuWidth(tguiWidget* widget, float minimumWidth);
 CTGUI_API float tguiMenuBar_getMinimumSubMenuWidth(const tguiWidget* widget);

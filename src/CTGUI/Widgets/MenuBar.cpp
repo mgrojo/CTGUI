@@ -54,12 +54,12 @@ tguiBool tguiMenuBar_addMenuItemToLastMenu(tguiWidget* widget, tguiUtf32 text)
     return DOWNCAST(widget->This)->addMenuItem(ctgui::toCppStr(text));
 }
 
-tguiBool tguiMenuBar_addMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool createParents)
+tguiBool tguiMenuBar_addMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool createParents)
 {
     std::vector<tgui::String> convertedHierarchy;
     convertedHierarchy.reserve(hierarchyLength);
     for (unsigned int i = 0; i < hierarchyLength; ++i)
-        convertedHierarchy.push_back(ctgui::toCppStr(hierarcy[i]));
+        convertedHierarchy.push_back(ctgui::toCppStr(hierarchy[i]));
 
     return DOWNCAST(widget->This)->addMenuItem(std::move(convertedHierarchy), createParents != 0);
 }
@@ -76,12 +76,12 @@ tguiBool tguiMenuBar_removeMenuItem(tguiWidget* widget, tguiUtf32 menu, tguiUtf3
     return DOWNCAST(widget->This)->removeMenuItem(ctgui::toCppStr(menu), ctgui::toCppStr(menuItem));
 }
 
-tguiBool tguiMenuBar_removeMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty)
+tguiBool tguiMenuBar_removeMenuItemHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool removeParentsWhenEmpty)
 {
     std::vector<tgui::String> convertedHierarchy;
     convertedHierarchy.reserve(hierarchyLength);
     for (unsigned int i = 0; i < hierarchyLength; ++i)
-        convertedHierarchy.push_back(ctgui::toCppStr(hierarcy[i]));
+        convertedHierarchy.push_back(ctgui::toCppStr(hierarchy[i]));
 
     return DOWNCAST(widget->This)->addMenuItem(convertedHierarchy, removeParentsWhenEmpty != 0);
 }
@@ -113,22 +113,22 @@ tguiBool tguiMenuBar_getMenuItemEnabled(tguiWidget* widget, tguiUtf32 menu, tgui
     return DOWNCAST(widget->This)->getMenuItemEnabled(ctgui::toCppStr(menu), ctgui::toCppStr(menuItem));
 }
 
-tguiBool tguiMenuBar_setMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength, tguiBool enabled)
+tguiBool tguiMenuBar_setMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength, tguiBool enabled)
 {
     std::vector<tgui::String> convertedHierarchy;
     convertedHierarchy.reserve(hierarchyLength);
     for (unsigned int i = 0; i < hierarchyLength; ++i)
-        convertedHierarchy.push_back(ctgui::toCppStr(hierarcy[i]));
+        convertedHierarchy.push_back(ctgui::toCppStr(hierarchy[i]));
 
     return DOWNCAST(widget->This)->setMenuItemEnabled(convertedHierarchy, enabled != 0);
 }
 
-tguiBool tguiMenuBar_getMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarcy, unsigned int hierarchyLength)
+tguiBool tguiMenuBar_getMenuItemEnabledHierarchy(tguiWidget* widget, tguiUtf32* hierarchy, unsigned int hierarchyLength)
 {
     std::vector<tgui::String> convertedHierarchy;
     convertedHierarchy.reserve(hierarchyLength);
     for (unsigned int i = 0; i < hierarchyLength; ++i)
-        convertedHierarchy.push_back(ctgui::toCppStr(hierarcy[i]));
+        convertedHierarchy.push_back(ctgui::toCppStr(hierarchy[i]));
 
     return DOWNCAST(widget->This)->getMenuItemEnabled(convertedHierarchy);
 }
